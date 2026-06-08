@@ -1,0 +1,68 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Gradient Text</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#0f0f23;color:#fff;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.ob{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:1000;display:flex;justify-content:center;align-items:center}.ob.hide{display:none}
+.oc{background:#1a1a3e;border-radius:20px;padding:40px;max-width:500px;width:90%;text-align:center}
+.oc h2{color:#e17055;font-size:28px;margin-bottom:8px}.oc .sub{color:#888;font-size:14px}
+.stps{margin:25px 0;text-align:left;display:flex;flex-direction:column;gap:18px}
+.st{display:flex;gap:14px;align-items:flex-start}.st .n{width:32px;height:32px;border-radius:50%;background:#e17055;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.st h4{font-size:14px;margin-bottom:2px}.st p{font-size:12px;color:#888;line-height:1.5}
+.oc button{padding:14px 40px;border:none;border-radius:10px;background:#e17055;color:#fff;font-size:16px;font-weight:600;cursor:pointer}
+.oc .sk{color:#555;font-size:12px;cursor:pointer;margin-top:12px;display:inline-block}
+.app{display:none;max-width:600px;width:100%;padding:20px;text-align:center}.app.show{display:block}
+h1{margin-bottom:5px}h1 span{background:linear-gradient(90deg,#e17055,#feca57,#00cec9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub2{color:#666;margin-bottom:20px;font-size:14px}
+.preview{padding:40px 20px;margin-bottom:20px;font-size:42px;font-weight:800;line-height:1.2;min-height:120px;display:flex;align-items:center;justify-content:center}
+.controls{background:#1a1a3e;border-radius:14px;padding:20px;margin-bottom:15px}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.row label{font-size:13px;color:#888;min-width:70px}
+.row input[type=color]{width:40px;height:40px;border:2px solid #333;border-radius:8px;cursor:pointer;padding:2px;background:none}
+.row input[type=range]{flex:1;accent-color:#e17055}
+.row .val{font-family:monospace;font-size:13px;color:#e17055;min-width:40px;text-align:right}
+.row input[type=text]{flex:1;padding:10px;border:1px solid #333;border-radius:8px;background:#0f0f23;color:#fff;font-size:14px}
+.row input[type=text]:focus{outline:none;border-color:#e17055}
+.presets{display:flex;justify-content:center;gap:8px;margin-bottom:15px;flex-wrap:wrap}
+.presets button{padding:6px 14px;border:1px solid #333;border-radius:16px;background:transparent;color:#888;cursor:pointer;font-size:12px}
+.presets button:hover{border-color:#e17055;color:#e17055}
+.output{background:#1a1a3e;border-radius:14px;padding:15px;margin-bottom:15px;text-align:left}
+.output pre{font-family:monospace;font-size:12px;color:#a855f7;line-height:1.5;white-space:pre-wrap}
+.output .copy-btn{margin-top:8px;padding:6px 14px;border:1px solid #e17055;border-radius:6px;background:transparent;color:#e17055;cursor:pointer;font-size:12px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#e17055;color:#fff;padding:12px 24px;border-radius:10px;font-weight:600;opacity:0;transition:.3s}.toast.show{opacity:1}
+</style></head><body>
+<div class="ob" id="ob"><div class="oc">
+<h2>Gradient Text</h2><p class="sub">Create beautiful gradient text effects</p>
+<div class="stps">
+<div class="st"><div class="n">1</div><div><h4>Enter Your Text</h4><p>Type the text you want to apply a gradient to.</p></div></div>
+<div class="st"><div class="n">2</div><div><h4>Customize the Gradient</h4><p>Pick 2-3 colors, set the angle, and choose a font weight. The preview updates live.</p></div></div>
+<div class="st"><div class="n">3</div><div><h4>Copy the CSS</h4><p>Click Copy CSS to get the ready-to-use code for your website or project.</p></div></div>
+</div>
+<button onclick="start()">Open Generator</button>
+<div class="sk" onclick="start()">Skip</div>
+</div></div>
+<div class="app" id="app">
+<h1><span>Gradient Text</span></h1><p class="sub2">Design gradient text, copy the CSS</p>
+<div class="preview" id="preview">Hello World</div>
+<div class="controls">
+<div class="row"><label>Text:</label><input type="text" id="text" value="Hello World" oninput="update()"></div>
+<div class="row"><label>Colors:</label><input type="color" id="c1" value="#e17055" oninput="update()"><input type="color" id="c2" value="#feca57" oninput="update()"><input type="color" id="c3" value="#00cec9" oninput="update()"></div>
+<div class="row"><label>Angle:</label><input type="range" id="angle" min="0" max="360" value="90" oninput="update()"><span class="val" id="angleVal">90&deg;</span></div>
+<div class="row"><label>Size:</label><input type="range" id="size" min="20" max="80" value="42" oninput="update()"><span class="val" id="sizeVal">42px</span></div>
+<div class="row"><label>Weight:</label><input type="range" id="weight" min="300" max="900" value="800" step="100" oninput="update()"><span class="val" id="weightVal">800</span></div>
+</div>
+<div class="presets"><button onclick="preset('#e17055','#feca57','#00cec9')">Sunset</button><button onclick="preset('#a855f7','#fd79a8','#feca57')">Purple Pink</button><button onclick="preset('#0984e3','#00cec9','#00b894')">Ocean</button><button onclick="preset('#ff6b6b','#ee5a24','#feca57')">Fire</button><button onclick="preset('#6c5ce7','#a855f7','#fd79a8')">Galaxy</button><button onclick="preset('#00b894','#00cec9','#74b9ff')">Mint</button></div>
+<div class="output"><pre id="cssCode"></pre><button class="copy-btn" onclick="copyCSS()">Copy CSS</button></div></div>
+<div class="toast" id="toast">Copied!</div>
+<script>
+function start(){document.getElementById('ob').classList.add('hide');document.getElementById('app').classList.add('show');localStorage.setItem('gt_seen','1');update()}
+if(localStorage.getItem('gt_seen')){document.getElementById('ob').classList.add('hide');document.getElementById('app').classList.add('show')}
+function update(){
+var text=document.getElementById('text').value||'Hello World';var c1=document.getElementById('c1').value;var c2=document.getElementById('c2').value;var c3=document.getElementById('c3').value;
+var angle=document.getElementById('angle').value;var size=document.getElementById('size').value;var weight=document.getElementById('weight').value;
+document.getElementById('angleVal').textContent=angle+'\u00b0';document.getElementById('sizeVal').textContent=size+'px';document.getElementById('weightVal').textContent=weight;
+var grad='linear-gradient('+angle+'deg, '+c1+', '+c2+', '+c3+')';
+document.getElementById('preview').style.background=grad;document.getElementById('preview').style.webkitBackgroundClip='text';document.getElementById('preview').style.webkitTextFillColor='transparent';
+document.getElementById('preview').style.backgroundClip='text';document.getElementById('preview').style.fontSize=size+'px';document.getElementById('preview').style.fontWeight=weight;
+document.getElementById('preview').textContent=text;
+document.getElementById('cssCode').textContent='.gradient-text {\n  background: '+grad+';\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: '+size+'px;\n  font-weight: '+weight+';\n}'}
+function preset(a,b,c){document.getElementById('c1').value=a;document.getElementById('c2').value=b;document.getElementById('c3').value=c;update()}
+function copyCSS(){navigator.clipboard.writeText(document.getElementById('cssCode').textContent);var t=document.getElementById('toast');t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1500)}
+</script></body></html>
